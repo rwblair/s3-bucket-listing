@@ -59,7 +59,7 @@ function getS3Data(marker, html) {
   var s3_rest_url = createS3QueryUrl(marker);
   // set loading notice
   $('#listing')
-      .html('<img src="//assets.okfn.org/images/icons/ajaxload-circle.gif" />');
+      .html('Loading...');
   $.get(s3_rest_url)
       .done(function(data) {
         // clear loading notice
@@ -88,7 +88,9 @@ function getS3Data(marker, html) {
               '<pre>' + html + '</pre>';
         }
       })
-      .fail(function(error) {
+      .fail(function(error, textStatus, errorThrown) {
+        console.log(textStatus);
+        console.log(errorThrown);
         console.error(error);
         $('#listing').html('<strong>Error: ' + error + '</strong>');
       });
